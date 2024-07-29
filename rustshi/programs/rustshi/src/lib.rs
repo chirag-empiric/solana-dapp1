@@ -4,12 +4,33 @@ declare_id!("CRjWCs644dmTa2BQjWW5AjvCkRpwmPtmF55CR6t4GmBG");
 
 #[program]
 pub mod rustshi {
+    use anchor_lang::solana_program::{program::invoke, system_instruction::transfer};
+
     use super::*;
 
-    pub fn participate(ctx: Context<MainDataSource>) -> Result<()> {
-        let con = &mut ctx.accounts.hits;
-        con.user_list.push(ctx.accounts.signer.key());
-        con.hits += 1;
+    pub fn participate(mut ctx: Context<MainDataSource>, amount: u64) -> Result<()> {
+        let cont = &mut ctx.accounts;
+
+        invoke(
+            &transfer(&cont.signer.key(), &cont.hits.key(), amount),
+            &[cont.signer.to_account_info(), cont.hits.to_account_info()],
+        )?;
+
+        let mut user_exist = false;
+
+        for (pos, ele) in cont.hits.user_list.clone().iter().enumerate() {
+            if *ele == cont.signer.key() {
+                cont.hits.user_deposits[pos] += amount;
+                user_exist = true;
+                break;
+            }
+        }
+
+        if user_exist == false {
+            cont.hits.user_list.push(cont.signer.key());
+            cont.hits.user_deposits.push(amount);
+        }
+
         Ok(())
     }
 }
@@ -17,6 +38,7 @@ pub mod rustshi {
 #[account]
 pub struct Hits {
     user_list: Vec<Pubkey>,
+    user_deposits: Vec<u64>,
     hits: u16,
 }
 
