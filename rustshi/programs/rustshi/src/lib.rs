@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 declare_id!("AGHt9cGqRDo1dokwpXMTbRwrJzgqTmuCfLJKBG28cDv6");
 
 #[program]
-pub mod simplepred {
+pub mod rustshi {
     use anchor_lang::solana_program::{program::invoke, system_instruction::transfer};
 
     use super::*;

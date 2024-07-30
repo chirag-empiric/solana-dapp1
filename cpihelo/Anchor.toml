@@ -1,0 +1,19 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+helo = "8uetvwenXxTQ4obAkcYCEEuwWRYzDefrUDo8sP2bkYUg"
+world = "DqFb71fP9Hi7BjtbYYEE2JHRahvsnPxHUxoDn37kx84R"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "/home/empiric-u3/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
