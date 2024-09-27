@@ -5,13 +5,14 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-rustshi = "CRjWCs644dmTa2BQjWW5AjvCkRpwmPtmF55CR6t4GmBG"
+rustshi = "2oeFaoswK61RiVhGh9oFCgyGmQxm99TQLCdK6qPs7UzQ"
+tokenthing = "7viEvPJH7HkTCdrbWtKutCa5VRjvrJSgPFc6KeqKVHdv"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "Localnet"
 wallet = "/home/empiric-u3/.config/solana/id.json"
 
 [scripts]

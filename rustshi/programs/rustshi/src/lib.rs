@@ -1,9 +1,10 @@
 use anchor_lang::prelude::*;
 
-declare_id!("AGHt9cGqRDo1dokwpXMTbRwrJzgqTmuCfLJKBG28cDv6");
+declare_id!("2oeFaoswK61RiVhGh9oFCgyGmQxm99TQLCdK6qPs7UzQ");
 
 #[program]
 pub mod rustshi {
+
     use anchor_lang::solana_program::{program::invoke, system_instruction::transfer};
 
     use super::*;
@@ -20,7 +21,7 @@ pub mod rustshi {
         context.global_state.total_betting_amount += amt;
 
         // token transfer shit here - learn CPI for that (transferFrom type shi prolly)
-        let reward_pool = 90 * amt / 100;
+        let reward_pool = (9 / 10) * amt;
         // let platform = 7 * amt / 100;
         // let burn_pool = 3 * amt / 100;
 
@@ -96,6 +97,7 @@ pub struct GlobalContext<'info> {
     #[account(mut)]
     signer: Signer<'info>,
     #[account(mut, seeds = [b"khatu"], bump)]
+    /// CHECK: don no wot goin here
     reward_pool: AccountInfo<'info>,
     system_program: Program<'info, System>,
 }
@@ -104,7 +106,7 @@ pub struct GlobalContext<'info> {
 pub struct FinalContext<'info> {
     #[account(init_if_needed, payer = signer, space = (32 + 8 + 1) * 100 + 8, seeds = [b"juari"], bump)]
     final_state: Account<'info, FinalState>,
-    #[account(mut, seeds = [b"jua"], bump)]
+    #[account(init_if_needed, payer = signer, space = (32 + 8 + 1) * 100 + 8, seeds = [b"jua"], bump)]
     global_state: Account<'info, GlobalState>,
     #[account(mut)]
     signer: Signer<'info>,
